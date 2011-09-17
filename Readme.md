@@ -18,7 +18,8 @@ configuration settings for specific types of errors or exceptions.
 
 ## Requirements
 
-- [Email Module](https://github.com/shadowhand/email) or any other Email Module
+- [Email Module](https://github.com/fo3-nik5/email) or any other Email Module
+- [Hint Module](https://github.com/fo3-nik5/kohana-hint)
 - PHP 5.3+
 
 ## Installation
