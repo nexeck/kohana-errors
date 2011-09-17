@@ -23,20 +23,18 @@ return array
 		/**
 		 * EMAIL
 		 *
-		 * If `email` is FALSE no email will be sent.
-		 * from/to must be set to an valid Email
-		 * view is optional
+		 * If `email` is false no email will be sent.
 		 */
 		'email' => false,
 		// -----------------------------------------------------------------------------
 		// EXAMPLE: "email"
 		// -----------------------------------------------------------------------------
 		//		'email' => array(
-		//			'from' => 'noreply@mbeck.org',
+		//			'from' => 'noreply@mbeck.org', // required
 		//			'to' => array(
 		//				'error@mbeck.org' => 'mBeck Error',
-		//			),
-		//			'view' => 'kohana/error',
+		//			), // required
+		//			'view' => 'kohana/error', // optional
 		//		),
 
 		/**
@@ -83,17 +81,20 @@ return array
 			//			),
 		),
 	),
-	'HTTP_Exception_404' => array(
-		'log' => false,
-		'email' => false,
-		'action' => array
-		(
-			'type'    => 'display',
-			'options' => array
-			(
-				// View used to replace the default error display
-				'view'     => 'errors/http/404',
-			),
-		)
-	),
+	// -----------------------------------------------------------------------------
+	// EXAMPLE: Error Handling for a specific Exception Class
+	// -----------------------------------------------------------------------------
+	//	'HTTP_Exception_404' => array(
+	//		'log' => false,
+	//		'email' => false,
+	//		'action' => array
+	//		(
+	//			'type'    => 'display',
+	//			'options' => array
+	//			(
+	//				// View used to replace the default error display
+	//				'view'     => 'errors/http/404',
+	//			),
+	//		)
+	//	),
 );
