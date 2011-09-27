@@ -26,6 +26,25 @@ return array
 		 * If `email` is false no email will be sent.
 		 */
 		'email' => false,
+
+		/**
+		 * CLI Options
+		 */
+		'cli' => array(
+			/**
+			 * Log CLI Errors
+			 */
+			'log' => true,
+			/**
+			 * Email CLI Errors
+			 */
+			'email' => true,
+			/**
+			 * Action CLI Errors
+			 */
+			'action' => true,
+		),
+
 		// -----------------------------------------------------------------------------
 		// EXAMPLE: "email"
 		// -----------------------------------------------------------------------------
