@@ -301,6 +301,11 @@ class MBeck_Error {
 	 */
 	public function action()
 	{
+		if (Kohana::$is_cli and ($this->config('cli.action', true) === false))
+		{
+			return;
+		}
+
 		$type = '_action_' . $this->config('action.type', null);
 		$options = $this->config('action.options', array());
 		$this->$type($options);
