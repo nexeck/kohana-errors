@@ -102,10 +102,8 @@ class MBeck_Error {
 
 			if (Kohana::$is_cli)
 			{
-				// Just display the text of the exception
+				// Display the text of the exception
 				echo "\n{$error->text}\n";
-
-				return true;
 			}
 
 			// Get the exception backtrace
@@ -117,7 +115,7 @@ class MBeck_Error {
 				{
 					// Workaround for a bug in ErrorException::getTrace() that exists in
 					// all PHP 5.2 versions. @see http://bugs.php.net/bug.php?id=45895
-					for ($i = count($error->trace) - 1; $i > 0; --$i)
+					for ($i = count($error->trace) - 1;$i > 0;--$i)
 					{
 						if (isset($error->trace[$i - 1]['args']))
 						{
@@ -246,7 +244,7 @@ class MBeck_Error {
 	 */
 	public function log()
 	{
-		if ($this->config('log', false) and is_object(Kohana::$log))
+		if (($this->config('log', false) or (($this->config('cli.log', true) === true) and Kohana::$is_cli)) and is_object(Kohana::$log))
 		{
 			Kohana::$log->add(Log::ERROR, $this->text);
 		}
@@ -265,9 +263,7 @@ class MBeck_Error {
 			throw new Exception('The email functionality of the Error module requires an Email module.');
 		}
 
-		$config = $this->config('email', false);
-
-		if ($config === false)
+		if ((($this->config('email', false) === false) and (Kohana::$is_cli === false)) or (Kohana::$is_cli and ($this->config('cli.log', true) === false)))
 		{
 			return;
 		}
@@ -364,7 +360,7 @@ class MBeck_Error {
 	}
 
 	/**
-	 * Performs a callback on the error before displaying
+	 * Performs a callback on the error
 	 *
 	 * @param	 array	$options	Options from config
 	 * @return	void
@@ -377,20 +373,15 @@ class MBeck_Error {
 		{
 			call_user_func($method, $this);
 		}
-
-		echo $this->display;
 	}
 
 	/**
-	 * CatchAll for actions. Just displays the error.
+	 * CatchAll for actions. Do nothing.
 	 *
 	 * @param	string	$method
 	 * @param	array	 $args
 	 */
-	public function __call($method, $args)
-	{
-		echo $this->display;
-	}
+	public function __call($method, $args) { }
 
 	/**
 	 * Display Error Callback
@@ -400,6 +391,7 @@ class MBeck_Error {
 	public static function example_callback(Error $error)
 	{
 		$error->display = '<p>THERE WAS AN ERROR!</p>';
+		echo $error->display;
 	}
 
 } // End MBeck_Error
