@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Error extends MBeck_Error {
+class Error extends Kohana_Error {
 
 } // End Error

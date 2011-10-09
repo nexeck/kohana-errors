@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class MBeck_Error {
+class Kohana_Error {
 
 	/**
 	 * Error Type
@@ -79,7 +79,8 @@ class MBeck_Error {
 	 * customizable per type in the config file for this module.
 	 *
 	 * @uses		Kohana::exception_text
-	 * @param	 object	 exception object
+	 * @param \Exception $e
+	 * @internal param \exception $object object
 	 * @return	boolean
 	 */
 	public static function handler(Exception $e)
@@ -129,7 +130,7 @@ class MBeck_Error {
 				}
 			}
 
-			if (!headers_sent())
+			if (!headers_sent() and (Kohana::$is_cli === false))
 			{
 				// Make sure the proper content type is sent with a 500 status
 				header('Content-Type: text/html; charset=' . Kohana::$charset, true, 500);
@@ -303,7 +304,7 @@ class MBeck_Error {
 	{
 		if (Kohana::$is_cli and ($this->config('cli.action', true) === false))
 		{
-			return;
+			return false;
 		}
 
 		$type = '_action_' . $this->config('action.type', null);
@@ -391,7 +392,7 @@ class MBeck_Error {
 	/**
 	 * Display Error Callback
 	 *
-	 * @param	object	$error	The error object
+	 * @param \Error|object $error The error object
 	 */
 	public static function example_callback(Error $error)
 	{
@@ -399,4 +400,4 @@ class MBeck_Error {
 		echo $error->display;
 	}
 
-} // End MBeck_Error
+} // End Kohana_Error
